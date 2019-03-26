@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import LanguageContext from '../context/LanguageContext';
 
 export default class Button extends Component {
-  static contextType = LanguageContext;
+  renderSubmit(value) {
+    if (value === 'english') {
+      return value;
+    } else if (value === 'lithuanian') {
+      return 'Pativrtinti';
+    } else if (value === 'russian') {
+      return 'Отправить';
+    } else {
+      return 'Enviar';
+    }
+  }
 
   render() {
-    console.log(this.context);
-    return <button className='ui button primary'>Submit</button>;
+    return (
+      <button className='ui button primary'>
+        <LanguageContext.Consumer>
+          {value => this.renderSubmit(value)}
+        </LanguageContext.Consumer>
+      </button>
+    );
   }
 }
